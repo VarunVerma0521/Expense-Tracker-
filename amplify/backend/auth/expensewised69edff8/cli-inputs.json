@@ -36,7 +36,7 @@
     "sharedId": "d69edff8",
     "resourceName": "expensewised69edff8",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "defaultSocial",
+    "useDefault": "default",
     "usernameAttributes": [
       "email"
     ],
@@ -58,11 +58,7 @@
     },
     "breakCircularDependency": true,
     "dependsOn": [],
-    "hostedUI": true,
-    "hostedUIDomainName": "expensewise1788b57f-1788b57f",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:9002/\"],\"LogoutURLs\":[\"http://localhost:9002/\"]}",
+    "hostedUI": false,
     "authProviders": []
   }
 }

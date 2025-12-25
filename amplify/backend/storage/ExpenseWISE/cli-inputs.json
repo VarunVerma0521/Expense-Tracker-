@@ -1,0 +1,24 @@
+{
+  "resourceName": "ExpenseWISE",
+  "tableName": "ExpenseWISE",
+  "partitionKey": {
+    "fieldName": "PK",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "UserID",
+    "fieldType": "string"
+  },
+  "gsi": [
+    {
+      "name": "Category",
+      "partitionKey": {
+        "fieldName": "PK",
+        "fieldType": "string"
+      }
+    }
+  ],
+  "triggerFunctions": [
+    "ExpenseWISETrigger43f974d1"
+  ]
+}

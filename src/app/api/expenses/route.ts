@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, ScanCommand, PutCommand, GetCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 
-const client = new DynamoDBClient({ region: process.env.AWS_REGION || 'us-east-1' });
+const client = new DynamoDBClient({ region: process.env.AWS_REGION || 'ap-south-1' });
 const docClient = DynamoDBDocumentClient.from(client);
-const TABLE_NAME = process.env.DYNAMODB_TABLE || 'Expenses';
+const TABLE_NAME = process.env.DYNAMODB_TABLE || 'ExpenseWISE-dev';
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     const command = new ScanCommand({
       TableName: TABLE_NAME,
-      FilterExpression: 'userId = :userId',
+      FilterExpression: 'UserID = :userId',
       ExpressionAttributeValues: {
         ':userId': userId,
       },
@@ -25,10 +25,14 @@ export async function GET(request: NextRequest) {
 
     const response = await docClient.send(command);
     const items = response.Items || [];
-    // Parse dates back to Date objects
+    // Parse dates back to Date objects and map to expected format
     const expenses = items.map((item: any) => ({
-      ...item,
+      id: item.PK,
+      userId: item.UserID,
       date: new Date(item.date as string),
+      amount: item.amount,
+      category: item.category,
+      note: item.note,
     }));
     return NextResponse.json(expenses);
   } catch (error) {
@@ -49,8 +53,8 @@ export async function POST(request: NextRequest) {
     const command = new PutCommand({
       TableName: TABLE_NAME,
       Item: {
-        id,
-        userId,
+        PK: id,
+        UserID: userId,
         date,
         amount,
         category,
@@ -77,7 +81,7 @@ export async function PUT(request: NextRequest) {
 
     const command = new UpdateCommand({
       TableName: TABLE_NAME,
-      Key: { id, userId },
+      Key: { PK: id, UserID: userId },
       UpdateExpression: 'SET #date = :date, amount = :amount, category = :category, #note = :note',
       ExpressionAttributeNames: {
         '#date': 'date',
@@ -111,7 +115,7 @@ export async function DELETE(request: NextRequest) {
 
     const command = new DeleteCommand({
       TableName: TABLE_NAME,
-      Key: { id, userId },
+      Key: { PK: id, UserID: userId },
     });
 
     await docClient.send(command);

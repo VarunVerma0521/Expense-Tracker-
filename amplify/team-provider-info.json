@@ -14,6 +14,15 @@
     "categories": {
       "auth": {
         "expensewised69edff8": {}
+      },
+      "function": {
+        "ExpenseWISETrigger43f974d1": {
+          "deploymentBucketName": "amplify-expensewise-dev-3b7ee-deployment",
+          "s3Key": "amplify-builds/ExpenseWISETrigger43f974d1-4c796c67686936323172-build.zip"
+        }
+      },
+      "storage": {
+        "ExpenseWISE": {}
       }
     }
   }

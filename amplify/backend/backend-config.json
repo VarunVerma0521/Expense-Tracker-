@@ -26,5 +26,47 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "function": {
+    "ExpenseWISETrigger43f974d1": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "ExpenseWISE"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_ExpenseWISETrigger43f974d1_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ExpenseWISETrigger43f974d1"
+        }
+      ]
+    },
+    "AMPLIFY_function_ExpenseWISETrigger43f974d1_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ExpenseWISETrigger43f974d1"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "ExpenseWISE": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
   }
 }
